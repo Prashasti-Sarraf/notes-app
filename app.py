@@ -46,6 +46,49 @@ def list_notes():
         print(f"#{n['id']} | {n['title']}  [tags: {tags}]")
 
 
+def score_note(note, terms):
+    """Return a relevance score for a note against the search terms.
+
+    Matches are weighted by where they occur: an exact tag match counts
+    most, then the title, then partial tag matches, then the body.
+    """
+    title = note["title"].lower()
+    body = note["body"].lower()
+    tags = [t.lower() for t in note["tags"]]
+
+    score = 0
+    for term in terms:
+        if term in tags:
+            score += 5
+        else:
+            score += sum(2 for tag in tags if term in tag)
+        score += 3 * title.count(term)
+        score += 1 * body.count(term)
+    return score
+
+
+def search_notes():
+    query = input("Search (keywords or tags): ").strip().lower()
+    terms = [t for t in query.split() if t]
+    if not terms:
+        print("Empty search.")
+        return
+
+    notes = load_notes()
+    results = [(score_note(n, terms), n) for n in notes]
+    results = [(score, n) for score, n in results if score > 0]
+    results.sort(key=lambda pair: (-pair[0], pair[1]["id"]))
+
+    if not results:
+        print("No matching notes.")
+        return
+
+    print(f"Found {len(results)} matching note(s):")
+    for score, n in results:
+        tags = ", ".join(n["tags"]) if n["tags"] else "—"
+        print(f"#{n['id']} | {n['title']}  [tags: {tags}]  (relevance: {score})")
+
+
 def delete_note():
     try:
         note_id = int(input("Note ID to delete: ").strip())
@@ -66,16 +109,19 @@ def main():
         print("\n--- Notes App ---")
         print("1. Add note")
         print("2. List notes")
-        print("3. Delete note")
-        print("4. Quit")
+        print("3. Search notes")
+        print("4. Delete note")
+        print("5. Quit")
         choice = input("> ").strip()
         if choice == "1":
             add_note()
         elif choice == "2":
             list_notes()
         elif choice == "3":
-            delete_note()
+            search_notes()
         elif choice == "4":
+            delete_note()
+        elif choice == "5":
             break
         else:
             print("Invalid choice.")
