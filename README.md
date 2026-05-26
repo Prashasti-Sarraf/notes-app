@@ -10,7 +10,7 @@ python3 app.py
 
 ## Branches
 - `main` — base skeleton
-- `vibe-coding` — search feature added via raw LLM prompting
-- `openspec` — search feature added via OpenSpec spec-driven workflow
+- `vibe_coded_submission` — search feature added via raw LLM prompting
+- `sdd_submission` — search feature added via OpenSpec spec-driven workflow
 
-See `DIFFERENCES.md` on the `openspec` branch for the comparison.
+See `DIFFERENCES.md` on the `sdd_submission` branch for the comparison.
