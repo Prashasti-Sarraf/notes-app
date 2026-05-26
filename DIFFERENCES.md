@@ -10,7 +10,7 @@ were handled by default*, and *what artifacts were left behind in the repo*.
 
 ---
 
-## Vibe Coding (branch: `vibe-coding`)
+## Vibe Coding (branch: `vibe_coded_submission`)
 
 **Prompt used:** A single vague instruction — "add a search feature... ranked by relevance. Make it work."
 
@@ -37,7 +37,7 @@ were handled by default*, and *what artifacts were left behind in the repo*.
 
 ---
 
-## Spec-Driven Development (branch: `openspec`)
+## Spec-Driven Development (branch: `sdd_submission`)
 
 **Workflow:** `/opsx:propose` → review proposal → `/opsx:apply` → `/opsx:archive`
 
